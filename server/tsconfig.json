@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "es6",                        // Specifies the ECMAScript target version
+      "module": "es6",                   // Sets the module system to CommonJS, used by Node.js
+      "moduleResolution": "node",             // Instructs TypeScript to use Node.js-style module resolution
+      "sourceMap": true,                      // Generates source map files for debugging
+      "strict": true,                         // Enables strict type checking
+      "esModuleInterop": true,                // Ensures compatibility with CommonJS modules
+      "noImplicitAny": true,                  // Disallows implicit 'any' types
+      "outDir": "./dist",                     // Specifies the output directory for compiled files
+      "rootDir": "./src"                      // Specifies the root directory of input files
+    },
+    "include": ["src/**/*"],                  // Includes all TypeScript files in the 'src' directory
+    "exclude": ["node_modules"]               // Excludes the 'node_modules' directory
+  }
