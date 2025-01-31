@@ -12,7 +12,9 @@ import 'dotenv/config';
 import path from "path";
 import { fileURLToPath } from 'url';
 import ejs from "ejs";
-import { sendEmail } from './config/mail.js';
+// Queue
+import "./jobs/index.js";
+import { emailQueue, emailQueueName } from './jobs/EmailJob.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 console.log(__dirname);
 const app = express();
@@ -25,10 +27,11 @@ app.set("views", path.resolve(__dirname, "./views"));
 app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // res.send(`Server is listening on port ${port}`)
     const html = yield ejs.renderFile(__dirname + `/views/emails/welcome.ejs`, { name: "Jagannath Nayak" });
-    yield sendEmail("jateyay871@rykone.com", "Testing SMTP", html);
-    res.send(html);
-    //  res.json({msg:"Email sent successfully 2"})
+    // await sendEmail("jateyay871@rykone.com", "Testing SMTP", html)
+    // res.send(html)
     // res.render("emails/welcome", {name:"Jagannath"})
+    yield emailQueue.add(emailQueueName, { to: "jateyay871@rykone.com", subject: "Testing Queue Email", body: html });
+    res.json({ msg: "Email sent successfully" });
 }));
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
